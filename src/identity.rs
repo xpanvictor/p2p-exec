@@ -15,6 +15,10 @@ impl IdentityKP {
         IdentityKP(keypair)
     }
 
+    pub fn get_kp(&self) -> identity::Keypair {
+        self.0.clone()
+    }
+
     pub fn get_pk(&self) -> identity::PublicKey {
         self.0.public()
     }
