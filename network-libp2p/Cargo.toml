@@ -1,0 +1,23 @@
+[package]
+name = "network-libp2p"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libp2p = { features = [
+    "dns",
+    "identify",
+    "kad",
+    "macros",
+    "mdns",
+    "noise",
+    "gossipsub",
+    "ping",
+    "request-response",
+    "tcp",
+    "tokio",
+    "websocket",
+    "yamux",
+], version = "*" }
+network-common = { path = "../network-common" }
+network-types = { path = "../network-types" }
