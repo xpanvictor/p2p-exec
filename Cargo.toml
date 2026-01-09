@@ -1,10 +1,17 @@
 [workspace]
 resolver = "3"
-members = ["network", "network-common", "network-libp2p", "network-types"]
+members = [
+    "bus",
+    "network",
+    "network-common",
+    "network-libp2p",
+    "network-types",
+]
 
 [workspace.dependencies]
 thiserror = "2.0.17"
 serde = { version = "1.0.228" }
+tokio = { version = "1.48.0" }
 
 [profile.release]
 codegen-units = 1
