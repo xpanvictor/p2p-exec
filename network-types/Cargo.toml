@@ -5,3 +5,7 @@ edition = "2024"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
+prost = {version = "0.13"}
+
+[build-dependencies]
+prost-build = {version = "0.13"}

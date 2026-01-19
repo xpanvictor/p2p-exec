@@ -2,9 +2,8 @@ use std::sync::mpsc;
 
 use network_common::NetworkBackendEvent;
 
-
 pub struct NetworkService {
-    sender: mpsc::Sender<NetworkBackendEvent>
+    sender: mpsc::Sender<NetworkBackendEvent>,
 }
 
 impl NetworkService {

@@ -1,31 +1,31 @@
 use std::any::{Any, TypeId};
 use std::collections::HashMap;
-use std::sync::{RwLock};
+use std::sync::RwLock;
 
 use tokio::sync::broadcast;
 
 pub struct EventBus {
-    subscribers: RwLock<HashMap<TypeId, Box<dyn Any + Send + Sync>>>
+    subscribers: RwLock<HashMap<TypeId, Box<dyn Any + Send + Sync>>>,
 }
 
 impl Default for EventBus {
     fn default() -> Self {
-        EventBus { subscribers: RwLock::new(HashMap::new()) }
+        EventBus {
+            subscribers: RwLock::new(HashMap::new()),
+        }
     }
 }
 
 impl EventBus {
     pub fn subscribe<T: Clone + Send + Sync + 'static>(&self) -> broadcast::Receiver<T> {
         let type_id = TypeId::of::<T>();
-        let mut subs = self.subscribers
-            .write()
-            .expect("subscribers list error");
-        let entry = subs.entry(type_id)
-            .or_insert_with(|| {
+        let mut subs = self.subscribers.write().expect("subscribers list error");
+        let entry = subs.entry(type_id).or_insert_with(|| {
             let (tx, _) = broadcast::channel::<T>(1024);
             Box::new(tx)
         });
-        entry.downcast_ref::<broadcast::Sender<T>>()
+        entry
+            .downcast_ref::<broadcast::Sender<T>>()
             .expect("type integrity guaranteed by TypeId")
             .subscribe()
     }
@@ -45,9 +45,8 @@ impl EventBus {
 #[cfg(test)]
 mod test {
     use super::*;
-    use tokio::task;
     use std::sync::Arc;
-
+    use tokio::task;
 
     #[tokio::test]
     async fn test_concurrent_subscribe() {

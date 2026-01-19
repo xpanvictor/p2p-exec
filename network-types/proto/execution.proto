@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package execution;
+
+message ExecutionTask {
+    uint64 id = 1;
+}

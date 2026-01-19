@@ -2,7 +2,6 @@ use std::task::{Context, Poll};
 
 use network_types::{PeerId, ProtocolName};
 
-
 pub enum NetworkBackendEvent {
     NotificationStreamOpen {
         remote: PeerId,
@@ -16,8 +15,8 @@ pub enum NetworkBackendEvent {
     NotificationReceived {
         remote: PeerId,
         protocol: ProtocolName,
-        payload: Vec<u8>
-    }
+        payload: Vec<u8>,
+    },
 }
 
 pub trait NetworkBackend: Send + Unpin {

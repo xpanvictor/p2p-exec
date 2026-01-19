@@ -2,7 +2,7 @@
 
 use std::borrow::Cow;
 
-/// Protocol name NewType 
+/// Protocol name NewType
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ProtocolName(Cow<'static, str>);
 
